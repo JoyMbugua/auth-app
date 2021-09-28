@@ -16,6 +16,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'phone_number':  {'required': False}, 
             'username': {'required': True}, 
             }
+    
 
     def create(self, validated_data):
         print("VALIDATED",validated_data)
