@@ -10,7 +10,7 @@ class UsersTest(APITestCase):
     def setUp(self):
        
         self.testuser = CustomUser.objects.create_user('testuser', 'testing@email.com')
-        self.testuser2 = CustomUser.objects.create_user('testuser2', '+254722800911')
+        self.testuser2 = CustomUser.objects.create_user('testuser2', '+234722800911')
         
         self.create_userurl = reverse('registerview')
 
