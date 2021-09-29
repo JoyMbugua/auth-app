@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status, permissions
+import pyotp
+import base64
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import CustomUserSerializer, MyTokenObtainPairSerializer
 
@@ -16,12 +18,18 @@ class CustomUserCreate(APIView):
     """
     permission_classes = (permissions.AllowAny, )
 
+ 
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
-        # print('serializer',serializer)
+        
         if serializer.is_valid():
             user = serializer.save()
             if user:
+                user.counter += 1
+                user.save()
+                key = base64.b32encode(user.username.encode())
+                hotp = pyotp.HOTP(key).at(user.counter)
+                print("HOT",hotp)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
