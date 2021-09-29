@@ -10,6 +10,7 @@ from .serializers import CustomUserSerializer, MyTokenObtainPairSerializer
 from django.utils.decorators import method_decorator
 
 from .models import CustomUser
+from .email import send_otp_mail
 
 
 class CustomUserCreate(APIView):
@@ -30,6 +31,7 @@ class CustomUserCreate(APIView):
                 key = base64.b32encode(user.username.encode())
                 hotp = pyotp.HOTP(key).at(user.counter)
                 print("HOT",hotp)
+                send_otp_mail(user.username, user.email, hotp)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
