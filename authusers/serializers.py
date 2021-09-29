@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-
+import random
 from .models import CustomUser
 
 class CustomUserSerializer(serializers.ModelSerializer):
@@ -13,10 +13,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = CustomUser
-        fields = ('username', 'email', 'phone_number')
+        fields = ('username', 'email', 'phone_number', 'password')
         extra_kwargs = {
             'phone_number':  {'required': False}, 
             'username': {'required': True},
+            'password': {'required': False}
             }
     
 
@@ -25,12 +26,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
         username = validated_data.get('username')
         user_email = validated_data.get('email', None)
         phone = validated_data.get('phone_number', None)
-        password = ''
+        # temporary code
+        num_code = [str(random.choice([x for x in range(10)])) for _ in range(5)]
+        password = ''.join(num_code)
+        print(password)
         user = None
         if user_email:
             user = CustomUser.objects.create_user(username, user_email, password)
         elif phone:
-            user = CustomUser.objects.create_user(username, phone)
+            user = CustomUser.objects.create_user(username, phone, password)
         user.save()
         return user
     
