@@ -57,26 +57,33 @@ class Signup extends Component{
   }
 
   render(){
-    return(
+    return (
       <div>
-          <h2>Signup Page</h2>
-            <form onSubmit={ this.handleSubmit }>
-            <CSRFToken />
-            <label>
-                Username:
-                <input name="username" type="text" value={this.state.username} onChange={this.handleChange} />
-               
-            </label>
-            <label>
-                Email:
-                <input name="email" type="email" value={this.state.email} onChange={this.handleChange} />
-                
-            </label>
+     
+        <form onSubmit={this.handleSubmit}>
+          <CSRFToken />
+          <fieldset>
+            <legend>Sign Up</legend>
+            <input
+              name="username"
+              placeholder="Username"
+              type="text"
+              value={this.state.username}
+              onChange={this.handleChange}
+            />
 
+            <input
+              placeholder="Email Address"
+              name="email"
+              type="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
             <input type="submit" value="Submit" />
-          </form>
+          </fieldset>
+        </form>
       </div>
-    )
+    );
   }
 }
 

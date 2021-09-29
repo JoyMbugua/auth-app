@@ -5,21 +5,26 @@ import Signup from "./Signup";
 
 class App extends Component{
    render(){
-    return(
-        <div className="site">
+    return (
+      <div className="site">
         <nav>
-            <Link className={"nav-link"} to={"/"}>Home</Link>
-            <Link className={"nav-link"} to={"/signup/"}>Signup</Link>
+          <Link className={"nav-link"} to={"/"}>
+            Home
+          </Link>
+          <Link className={"nav-link"} to={"/login/"}>
+            Login
+          </Link>
+          <Link className={"nav-link"} to={"/signup/"}>
+            Signup
+          </Link>
         </nav>
         <main>
-           
-
-            <Switch>
-                <Route exact path={"/signup/"} component={Signup}/>
-                <Route path={"/"} render={() => <div>Home again</div>}/>
-            </Switch>
+          <Switch>
+            <Route exact path={"/signup/"} component={Signup} />
+            <Route path={"/"} render={() => <div>Home again</div>} />
+          </Switch>
         </main>
-    </div>
+      </div>
     );
   }
 }

@@ -7,7 +7,7 @@ def send_otp_mail(name,receiver, code):
     subject = 'Your login details'
     sender = config('EMAIL_HOST_USER')
 
-    #passing in the context vairables
+    # passing in the context variables
     text_content = render_to_string('email/msg.txt',{"name": name, "code": code})
     html_content = render_to_string('email/msg.html',{"name": name, "code": code})
 
