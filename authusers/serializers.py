@@ -31,6 +31,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             user = CustomUser.objects.create_user(username, user_email, password)
         elif phone:
             user = CustomUser.objects.create_user(username, phone)
+        user.save()
         return user
     
 

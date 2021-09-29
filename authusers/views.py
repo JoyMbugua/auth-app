@@ -23,3 +23,7 @@ class CustomUserCreate(APIView):
 class ObtainTokenPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
+class DashboardView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    def get(self, request):
+        return Response(data={"message": "welcome home"}, status=status.HTTP_200_OK)
