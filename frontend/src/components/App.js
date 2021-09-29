@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Link, Route } from "react-router-dom";
 import Signup from "./Signup";
+import OTPView from "./Otp";
 
 
 class App extends Component{
@@ -20,7 +21,8 @@ class App extends Component{
         </nav>
         <main>
           <Switch>
-            <Route exact path={"/signup/"} component={Signup} />
+                    <Route exact path={ "/signup/" } component={ Signup } />
+                    <Route exact path={ '/verify/' } component={ OTPView }/>
             <Route path={"/"} render={() => <div>Home again</div>} />
           </Switch>
         </main>

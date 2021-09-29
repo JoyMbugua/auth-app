@@ -39,3 +39,16 @@ input{
     padding: 1em;
     border: 1px solid black;
 }
+.otpform{
+    display: flex;
+    flex-direction: row;
+    margin-left: 30%;
+}
+.otpform input{
+    margin: 1em 0em;
+}
+.otpform input[type='submit']{
+    height: 50px;
+    margin: .2em;
+    align-self: center;
+}
