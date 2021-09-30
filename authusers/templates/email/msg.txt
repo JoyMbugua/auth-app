@@ -1,3 +1,4 @@
 Hello {{name}}
 
-Your OTP verification code is {{ code }}
+Your OTP verification code is {{ code }}.
+Click on this {{ link }} to login

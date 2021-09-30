@@ -32,7 +32,11 @@ class CustomUserCreate(APIView):
                 # generate otp code with username
                 key = base64.b32encode(user.username.encode())
                 hotp = pyotp.HOTP(key).at(user.counter)
-                send_otp_mail(user.username, user.email, hotp)
+
+                # generate a magic link object for the user
+                magiclink = MagicLink.objects.create(user=user, email=user.email, code=hotp)
+                link=magiclink.generate_url(request)
+                send_otp_mail(user.username, user.email, hotp, link)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
