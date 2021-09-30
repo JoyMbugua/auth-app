@@ -34,6 +34,7 @@ class OTPView extends Component {
             localStorage.clear()
             localStorage.setItem('access_token', result.data.token.access)
             localStorage.setItem('refresh_token', result.data.token.refresh)
+            window.location.replace('/dashboard/')
             return result.data           
           } else if(result.data.message === 'wrong otp code'){   
             console.log(result.data.message)

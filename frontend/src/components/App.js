@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Switch, Link, Route } from "react-router-dom";
 import Signup from "./Signup";
 import OTPView from "./Otp";
+import Dashboard from "./Dashboard";
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
           <Switch>
             <Route exact path={"/signup/"} component={Signup} />
             <Route exact path={"/verify/"} component={OTPView} />
+            <Route exact path={"/dashboard/"} component={Dashboard} />
             <Route path={"/"} render={() => <div>Home again</div>} />
           </Switch>
         </main>
