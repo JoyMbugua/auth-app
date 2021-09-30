@@ -8,10 +8,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import CustomUserSerializer, MyTokenObtainPairSerializer
 
-from django.core import serializers
 
 from .models import CustomUser
 from .email import send_otp_mail
+from .models import MagicLink
 
 
 class CustomUserCreate(APIView):
@@ -25,12 +25,13 @@ class CustomUserCreate(APIView):
         
         if serializer.is_valid():
             user = serializer.save()
-            if user:
+            if user: 
                 user.counter += 1
                 user.save()
+
+                # generate otp code with username
                 key = base64.b32encode(user.username.encode())
                 hotp = pyotp.HOTP(key).at(user.counter)
-                print("HOT",hotp)
                 send_otp_mail(user.username, user.email, hotp)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -51,13 +52,15 @@ class DashboardView(APIView):
     def get(self, request):
         return Response(data={"message": "welcome home"}, status=status.HTTP_200_OK)
 
-
 class VerifyOTPView(APIView):
     """
     verifies entered otp and manually generates a jwt token for a user
     """
 
     def get_tokens_for_user(self, user, otp):
+        """
+        generates jwt with otp code
+        """
         refresh = RefreshToken.for_user(user)
         refresh['otp'] = otp
         return {
@@ -80,6 +83,3 @@ class VerifyOTPView(APIView):
                 print('Not it!')
                 return Response({'status': 400, 'message': 'wrong otp code'})
         return Response({'status': 400, 'message': 'user does not exist'})
-
-        
-

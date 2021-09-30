@@ -7,7 +7,6 @@ urlpatterns = [
     path('token/obtain/', ObtainTokenPairView.as_view(), name='tokencreate-view'),
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='tokenrefresh-view'),
     path('verify/', VerifyOTPView.as_view(), name='verifyotp'),
-    path('dashboard/', DashboardView.as_view(), name='dashboardview'),
-    
+    path('dashboard/', DashboardView.as_view(), name='dashboardview'),   
 ]
 
