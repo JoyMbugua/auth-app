@@ -2,6 +2,7 @@ from django.db import models
 from urllib.parse import urlencode, urljoin
 from django.contrib.sites.shortcuts import get_current_site
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.urls import reverse
 
 from django.contrib.auth.models import AbstractUser
 
@@ -22,3 +23,22 @@ class MagicLink(models.Model):
 
     def __str__(self):
         return f"{self.email}==={self.link}"
+    
+
+    def save(self, *args, **kwargs):
+        params = {'code': self.code}
+        params['email'] = self.email
+        query = urlencode(params)
+        
+        self.link = query
+        return super().save(*args, **kwargs)
+
+    def generate_url(self, request):
+        url_path = reverse('dashboardview')
+
+        query = self.link
+        url_path = f'{url_path}?{query}'
+        domain = get_current_site(request).domain
+        scheme = request.is_secure() and 'https' or 'http'
+        url = urljoin(f'{scheme}://{domain}', url_path)
+        return url
