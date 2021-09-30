@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import CSRFToken from "./Csrf";
-import OTPView from "./Otp";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -21,7 +20,6 @@ class Signup extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
-    //   console.log(this.state[event.target.name])
   }
 
   async handleSubmit(event) {
@@ -31,9 +29,6 @@ class Signup extends Component {
         username: this.state.username,
         email: this.state.email,
       };
-      //   alert('usercreated!' + this.state.username)
-      //   window.location.replace('http://127.0.0.1:8000/')
-
       await axios
         .post("http://127.0.0.1:8000/api/v1/users/register/", {
           username: this.state.username,
@@ -52,10 +47,6 @@ class Signup extends Component {
         errors: error.response.data,
       });
     }
-  }
-    toggleForms(state1, state2) {
-        this.state[state1] = !this.state[state1]
-        this.state[state2] = !this.state[state2]
   }
   render() {
     return (
@@ -79,7 +70,7 @@ class Signup extends Component {
                 value={this.state.email}
                 onChange={this.handleChange}
               />
-              <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" onClick={this.shareData} />
             </fieldset>
           </form>
       

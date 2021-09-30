@@ -42,3 +42,25 @@ class DashboardView(APIView):
     # permission_classes = (permissions.IsAuthenticated,)
     def get(self, request):
         return Response(data={"message": "welcome home"}, status=status.HTTP_200_OK)
+
+
+class VerifyOTPView(APIView):
+    """
+    verifies entered otp
+    """
+    def post(self, request):
+        user = CustomUser.objects.last()
+        if user is not None:
+            key = base64.b32encode(user.username.encode())
+            otp = pyotp.HOTP(key)
+            if otp.verify(request.data['otpCode'], user.counter):
+                user.isVerified = True
+                user.code = otp.at(user.counter)
+                user.save()
+                return Response({'status': 200})
+            else:
+                print('Not it!')
+        return Response({'status': 400})
+
+        
+

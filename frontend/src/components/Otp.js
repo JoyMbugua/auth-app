@@ -6,13 +6,14 @@ class OTPView extends Component{
     render() {
          return (
            <div>
-             <form className="otpform">
+            <form className="otpform" >
                <CSRFToken />
                <label>
-                         Enter OTP Code:{' '}
+                  Enter OTP Code:{' '}
                  <input
                    name="username"
                    type="text"
+                   onChange={this.handleChange}
                  />
                </label>
                <input type="submit" value="Send" />
