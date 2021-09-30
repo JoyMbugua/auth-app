@@ -87,3 +87,18 @@ class VerifyOTPView(APIView):
                 print('Not it!')
                 return Response({'status': 400, 'message': 'wrong otp code'})
         return Response({'status': 400, 'message': 'user does not exist'})
+
+
+class LoginUserFromEmail(APIView):
+    """
+    creates a jwt from url associated with user
+    """
+    def post(self,request):
+        user = CustomUser.objects.last()
+
+        if user is not None:
+            magic_link = MagicLink.objects.get(user=user)
+            magic_link_token = magic_link.get_tokens_for_user(user)
+
+            return Response({'status': 200, 'message': 'magiclink ok', 'token': magic_link_token})
+        return Response({'status': 400, 'message': 'user does not exist'})
