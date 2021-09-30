@@ -42,3 +42,11 @@ class MagicLink(models.Model):
         scheme = request.is_secure() and 'https' or 'http'
         url = urljoin(f'{scheme}://{domain}', url_path)
         return url
+
+    def get_tokens_for_user(self, user):
+        refresh = RefreshToken.for_user(user)
+        refresh['magiclink'] = self.link
+        return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }
