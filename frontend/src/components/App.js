@@ -3,6 +3,7 @@ import { Switch, Link, Route } from "react-router-dom";
 import Signup from "./Signup";
 import OTPView from "./Otp";
 import Dashboard from "./Dashboard";
+import MagicLinkHandler from "./LinkHandler";
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
             <Route exact path={"/signup/"} component={Signup} />
             <Route exact path={"/verify/"} component={OTPView} />
             <Route exact path={"/dashboard/"} component={Dashboard} />
+            <Route exact path={"/verifyemail/"} component={ MagicLinkHandler} />
             <Route path={"/"} render={() => <div>Home again</div>} />
           </Switch>
         </main>

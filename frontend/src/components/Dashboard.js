@@ -42,7 +42,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <p>Message: {this.state.message}</p>
+        <h1 className="centered-text">{this.state.message}!</h1>
       </div>
     );
   }

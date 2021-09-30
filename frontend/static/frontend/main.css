@@ -56,3 +56,7 @@ input{
     color: red;
     font-size: 13px;
 }
+.centered-text {
+   text-align: center;
+    color: navy;
+}
