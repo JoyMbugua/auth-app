@@ -1,57 +1,64 @@
+import axios from "axios";
 import React, { Component } from "react";
 import CSRFToken from "./Csrf";
 
-class OTPView extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            otpCode: ""
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
+class OTPView extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      otpCode: "",
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ otpCode: event.target.value });
+  }
+
+  async handleSubmit(event) {
+    console.log("state", this.state);
+    event.preventDefault();
+    try {
+      await axios
+        .post("http://127.0.0.1:8000/api/v1/verify/", {
+          otpCode: this.state.otpCode,
+        })
+        .then((resp) => resp)
+        .then((result) => {
+          if (result.data.message === "otp verified") {
+            localStorage.clear()
+            localStorage.setItem('access_token', result.data.token.access)
+            localStorage.setItem('refresh_token', result.data.token.refresh)
+            return result.data           
+          } else if(result.data.message === 'wrong otp code'){   
+            console.log(result.data.message)
         }
-       
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        } 
+        )
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-
-    handleChange(event){
-        this.setState({otpCode: event.target.value})
-    }
-
-    async handleSubmit(event){
-        console.log("state",this.state)
-        event.preventDefault();
-        try{
-            
-            await axios.post('http://127.0.0.1:8000/api/v1/verify/', {
-                otpCode: this.state.otpCode
-            })
-            .then(resp => resp)
-            .then(data => {
-                console.log(data)
-            })
-        }catch(error){
-            console.log(error)
-        }
-    }
- 
-    render() {
-         return (
-           <div>
-             <form className="otpform" onSubmit={this.handleSubmit}>
-               <CSRFToken />
-               <label>
-                  Enter OTP Code:{' '}
-                 <input
-                   name="username"
-                   type="text"
-                   onChange={this.handleChange}
-                 />
-               </label>
-               <input type="submit" value="Send" />
-             </form>
-           </div>
-         );
-    }
+  render() {
+    return (
+      <div>
+        <form className="otpform" onSubmit={this.handleSubmit}>
+          <CSRFToken />
+          <label>
+            Enter OTP Code:{" "}
+            <input name="username" type="text" onChange={this.handleChange} />
+          </label>
+          <input type="submit" value="Send" />
+        </form>
+      </div>
+    );
+  }
 }
 
 export default OTPView;

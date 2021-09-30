@@ -3,9 +3,8 @@ import { Switch, Link, Route } from "react-router-dom";
 import Signup from "./Signup";
 import OTPView from "./Otp";
 
-
-class App extends Component{
-   render(){
+class App extends Component {
+  render() {
     return (
       <div className="site">
         <nav>
@@ -21,8 +20,8 @@ class App extends Component{
         </nav>
         <main>
           <Switch>
-                    <Route exact path={ "/signup/" } component={ Signup } />
-                    <Route exact path={ '/verify/' } component={ OTPView }/>
+            <Route exact path={"/signup/"} component={Signup} />
+            <Route exact path={"/verify/"} component={OTPView} />
             <Route path={"/"} render={() => <div>Home again</div>} />
           </Switch>
         </main>
@@ -30,5 +29,4 @@ class App extends Component{
     );
   }
 }
-
 export default App;
