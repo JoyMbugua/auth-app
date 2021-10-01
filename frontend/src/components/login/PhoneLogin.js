@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
-import CSRFToken from "./Csrf";
+import CSRFToken from "../Csrf";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
-class EmailLogin extends Component {
+class PhoneLogin extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-        email: "",
-        emailError: false
+        phone: "",
+        phoneError: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,7 +28,7 @@ class EmailLogin extends Component {
   
         await axios
         .post("http://127.0.0.1:8000/api/v1/users/login/", {
-          email: this.state.email,
+          phone_number: this.state.phone,
         })
         .then((res) => res)
         .then((result) => {
@@ -48,27 +48,26 @@ class EmailLogin extends Component {
   }
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <main>
+         
+        <form id="loginform" onSubmit={this.handleSubmit}>
+        <h3 className="centered-text text">Sign In with phone number</h3>
           <CSRFToken />
-          <fieldset>
-            <legend>Email Sign Up</legend>
-            <p className="errormsg">{this.state.emailError}</p>
+            <p className="errormsg">{this.state.phoneError}</p>
 
             <input
-              placeholder="Email Address"
-              name="email"
-              type="email"
-              value={this.state.email}
+              placeholder="Phone Number"
+              name="phone"
+              type="phone"
+              value={this.state.phone}
               onChange={this.handleChange}
             />
            
             <input type="submit" value="Submit" />
-          </fieldset>
         </form>
-      </div>
+      </main>
     );
   }
 }
 
-export default EmailLogin;
+export default PhoneLogin;

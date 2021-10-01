@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { Switch, Link, Route } from "react-router-dom";
-import EmailSignup from "./EmailSignup";
-import PhoneSignup from "./PhoneSignup";
-import RegisterPage from "./RegisterPage";
+import EmailSignup from "./signup/EmailSignup";
+import PhoneSignup from "./signup/PhoneSignup";
+import RegisterPage from "./signup/RegisterPage";
 import OTPView from "./Otp";
-import Dashboard from "./Dashboard";
-import MagicLinkHandler from "./LinkHandler";
-import LoginPage from "./LoginPage";
-import EmailLogin from "./EmailLogin";
-import PhoneLogin from "./PhoneLogin";
-import Logout from "./Logout";
+import Dashboard from "./views/Dashboard";
+import MagicLinkHandler from "./views/LinkHandler";
+import LoginPage from "./login/LoginPage";
+import EmailLogin from "./login/EmailLogin";
+import PhoneLogin from "./login/PhoneLogin";
+import Logout from "./views/Logout";
 
 class App extends Component {
   render() {

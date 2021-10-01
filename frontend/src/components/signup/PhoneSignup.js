@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import CSRFToken from "./Csrf";
+import CSRFToken from "../Csrf";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
