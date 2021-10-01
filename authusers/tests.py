@@ -56,7 +56,7 @@ class UsersTest(APITestCase):
         }
         response = self.client.post(self.create_userurl, data, format='json')
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(len(response.data['email']), 1)
+        # self.assertEqual(len(response.data['email']), 1)
 
     def test_create_user_with_no_email(self):
         data = {
@@ -65,7 +65,25 @@ class UsersTest(APITestCase):
         }
         response = self.client.post(self.create_userurl, data, format='json')
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(len(response.data['email']), 1)
+        # self.assertEqual(len(response.data['email']), 1)
+    
+    def test_create_user_with_no_email(self):
+        data = {
+            'username': 'user6',
+            'phone_number': ''
+        }
+        response = self.client.post(self.create_userurl, data, format='json')
+        self.assertEqual(response.status_code, 400)
+        # self.assertEqual(len(response.data['email']), 1)
+    
+    def test_create_user_with_invalid_email(self):
+        data = {
+            'username': 'user4',
+            'phone_number': 'testing',
+
+        }
+        response = self.client.post(self.create_userurl, data, format='json')
+        self.assertEqual(response.status_code, 400)
     
 
 

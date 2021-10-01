@@ -3,11 +3,12 @@ from urllib.parse import urlencode, urljoin
 from django.contrib.sites.shortcuts import get_current_site
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.urls import reverse
+from phonenumber_field.modelfields import PhoneNumberField
 
 from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
-    phone_number = models.CharField(max_length=14, blank=True, null='')
+    phone_number = PhoneNumberField()
     isVerified = models.BooleanField(blank=False, default=False)
     counter = models.IntegerField(default=0)
     code = models.CharField(max_length=10, null='')

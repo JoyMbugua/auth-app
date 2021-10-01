@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #3rd parties
     'rest_framework',
+    'phonenumber_field',
     #local
     'authusers',
     'frontend',
