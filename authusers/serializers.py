@@ -22,7 +22,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     
 
     def create(self, validated_data):
-      
+        
         username = validated_data.get('username')
         user_email = validated_data.get('email', None)
         phone = validated_data.get('phone_number', None)

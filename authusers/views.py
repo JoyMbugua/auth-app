@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework.response import Response
+from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
 from rest_framework import status, permissions
 import pyotp
@@ -12,6 +13,7 @@ from .serializers import CustomUserSerializer, MyTokenObtainPairSerializer
 from .models import CustomUser
 from .email import send_otp_mail
 from .models import MagicLink
+from .utils import send_sms
 
 
 class CustomUserCreate(APIView):
@@ -22,7 +24,7 @@ class CustomUserCreate(APIView):
  
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
-        
+
         if serializer.is_valid():
             user = serializer.save()
             if user: 
@@ -32,11 +34,17 @@ class CustomUserCreate(APIView):
                 # generate otp code with username
                 key = base64.b32encode(user.username.encode())
                 hotp = pyotp.HOTP(key).at(user.counter)
-
-                # generate a magic link object for the user
-                magiclink = MagicLink.objects.create(user=user, email=user.email, code=hotp)
-                link=magiclink.generate_url(request)
-                send_otp_mail(user.username, user.email, hotp, link)
+               
+               # sending otp to phone signups
+                if request.data.get('phone_number') is not None:
+                    phone = request.data['phone_number']
+                    send_sms(hotp, phone)
+                else:
+                    if request.data.get('email') is not None:
+                       email = request.data['email']
+                       magiclink = MagicLink.objects.create(user=user, email=user.email, code=hotp)
+                       link = magiclink.generate_url(request)
+                       send_otp_mail(user.username, email, hotp, link)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 

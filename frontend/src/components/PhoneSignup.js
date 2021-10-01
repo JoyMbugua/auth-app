@@ -31,10 +31,11 @@ class PhoneSignup extends Component {
       const phoneNumberBool = this.state.phoneNumber === this.state.phoneNumber2
 
       if(phoneNumberBool){
+          console.log(this.state)
         await axios
         .post("http://127.0.0.1:8000/api/v1/users/register/", {
           username: this.state.username,
-          phoneNumber: this.state.phoneNumber,
+          phone_number: this.state.phoneNumber,
         })
         .then((res) => res)
         .then((result) => {
