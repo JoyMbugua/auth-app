@@ -2,12 +2,15 @@
 
 body {
     font-family: 'Recursive', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 nav{
     background-color: coral;
     display: flex;
     justify-content: center;
     padding: 1em;
+    width: 100%;
 }
 .nav-link{
     color: white;
@@ -84,5 +87,11 @@ input{
  }
  .otperror{
      margin-left: 35%;
+ }
+ a {
+     text-decoration: none;
+ }
+ a:visited{
+     color: white;
  }
  

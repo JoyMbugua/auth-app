@@ -32,9 +32,9 @@ class EmailLogin extends Component {
         })
         .then((res) => res)
         .then((result) => {
-            console.log("results",result)
+           
           if (result.data.status === 201) {
-            console.log(result);
+            
             localStorage.setItem("name",result.data.userdata)
             window.location.replace("http://127.0.0.1:8000/verify/");
           }

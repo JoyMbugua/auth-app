@@ -19,11 +19,14 @@ class App extends Component {
           <Link className={"nav-link"} to={"/"}>
             Home
           </Link>
-          <Link className={"nav-link"} to={"/login/"}>
-            Login
+          <Link className={"nav-link"} to={"/dashboard/"}>
+            Dashboard
           </Link>
           <Link className={"nav-link"} to={"/signup/"}>
             Signup
+          </Link>
+          <Link className={"nav-link"} to={"/login/"}>
+            Login
           </Link>
         </nav>
         <main>

@@ -7,7 +7,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       message: "",
-      loggedin: false
+      loggedin: false,
     };
     this.getMessage = this.getMessage.bind(this);
   }
@@ -15,7 +15,7 @@ class Dashboard extends Component {
   async getMessage() {
     try {
       const header = localStorage.getItem("access_token");
-      console.log("header", header);
+   
       await axios
         .get("http://127.0.0.1:8000/api/v1/dashboard/", {
           headers: {
@@ -29,7 +29,7 @@ class Dashboard extends Component {
           const message = data.data.message;
           this.setState({
             message: message,
-            loggedin: true
+            loggedin: true,
           });
           return message;
         });
@@ -39,20 +39,17 @@ class Dashboard extends Component {
   }
   componentDidMount() {
     const msg = this.getMessage();
-    console.log("message", JSON.stringify(msg, null, 4));
+    // console.log("message", JSON.stringify(msg, null, 4));
   }
 
   render() {
     return (
       <div>
-        <h1 className="centered-text">{this.state.message}!</h1>{' '}
-        <br />
+        <h1 className="centered-text">{this.state.message}</h1> <br />
         {this.state.loggedin && (
-            <div className="logoutinputs">
-                <Link to={'/logout/'}>
+          <Link className="logoutinputs" to={"/logout/"}>
             <input type="submit" value="Logout" />
-            </Link>
-            </div>
+          </Link>
         )}
       </div>
     );

@@ -22,9 +22,9 @@ class OTPView extends Component {
   }
 
   async handleSubmit(event) {
-    console.log("state", this.state);
+   
     const name = localStorage.getItem('name')
-    console.log("name",name)
+   
     event.preventDefault();
     try {
       await axios
