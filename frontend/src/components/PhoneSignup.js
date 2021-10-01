@@ -13,7 +13,8 @@ class PhoneSignup extends Component {
         username: "",
         phoneNumber: "",
         phoneNumber2: "",
-        phoneNumberMismatch: ""
+        phoneNumberMismatch: false,
+        formerrors: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -44,24 +45,34 @@ class PhoneSignup extends Component {
         });
       }else{
           this.setState({
-              phoneNumberMismatch: "The two phone number fields didn’t match."
+              phoneNumberMismatch: true
           })
       }
     } catch (error) {
       console.log(error.stack);
-      this.setState({
-        errors: error.response.data,
-      });
+     if(error){
+        this.setState({
+            formerrors: true,
+          });
+     }
     }
   }
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+           {this.state.formerrors && (
+               <p className="errormsg">
+                   Incorrect form inputs!
+               </p>
+           )}
+           <br />
           <CSRFToken />
           <fieldset>
             <legend>Phone Sign Up</legend>
-            <p className="errormsg">{this.state.phoneNumberMismatch}</p>
+            {this.state.phoneNumberMismatch && (
+                <p className="errormsg">The two phone number fields didn’t match!</p>
+            )}
             <input
               name="username"
               placeholder="Username"
@@ -69,7 +80,6 @@ class PhoneSignup extends Component {
               value={this.state.username}
               onChange={this.handleChange}
             />
-
             <input
               placeholder="Phone Number e.g +234711233455"
               name="phoneNumber"

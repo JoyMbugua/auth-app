@@ -30,13 +30,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
         num_code = [str(random.choice([x for x in range(10)])) for _ in range(5)]
         password = ''.join(num_code)
        
-        user = None
         if user_email:
             user = CustomUser.objects.create_user(username, user_email, password)
+            user.save()
+            return user
         elif phone:
             user = CustomUser.objects.create_user(username, phone, password)
-        user.save()
-        return user
+            user.save()
+            return user
+        return ''
     
 
 
