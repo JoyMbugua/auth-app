@@ -6,6 +6,7 @@ import RegisterPage from "./RegisterPage";
 import OTPView from "./Otp";
 import Dashboard from "./Dashboard";
 import MagicLinkHandler from "./LinkHandler";
+import LoginPage from "./LoginPage";
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path={"/signup/"} component={RegisterPage} />
+            <Route path={"/login/"} component={LoginPage} />
             <Route exact path={"/email-signup/"} component={EmailSignup} />
             <Route exact path={"/phone-signup/"} component={PhoneSignup} />
             <Route exact path={"/verify/"} component={OTPView} />

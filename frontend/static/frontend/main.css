@@ -64,7 +64,7 @@ input{
 .inputs{
     margin: 5em auto;
 }
-.register-site input{
+.register-site, .login-site input{
     width: 250px;
     display: block;
     margin-top: 1em;
