@@ -10,6 +10,7 @@ class OTPView extends Component {
     super(props);
     this.state = {
       otpCode: "",
+      error: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -46,6 +47,9 @@ class OTPView extends Component {
         )
     } catch (error) {
       console.log(error);
+      this.setState({
+          error: true
+      })
     }
   }
 
@@ -64,6 +68,7 @@ class OTPView extends Component {
           </label>
           <input type="submit" value="Send" />
         </form>
+        {this.state.error && <p className="otperror errormsg">Wrong code. Please try again...</p>}
       </div>
     );
   }

@@ -26,7 +26,7 @@ input[type="submit"]{
 form {
     height: 35%;
     max-width: 35%;
-    margin: 5rem auto;
+    margin: 5rem auto 0;
     text-align: center;    
 }
 fieldset{
@@ -64,7 +64,7 @@ input{
 .inputs{
     margin: 5em auto;
 }
-.register-site, .login-site input{
+.register-site input, .login-site input{
     width: 250px;
     display: block;
     margin-top: 1em;
@@ -73,3 +73,11 @@ input{
     border: 2px solid navy;
     color: navy;
 }
+.text{
+    text-align: left;
+    margin-left: 4em;
+ }
+ .otperror{
+     margin-left: 35%;
+ }
+ 

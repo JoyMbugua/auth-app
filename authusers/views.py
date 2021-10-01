@@ -7,7 +7,6 @@ import base64
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import CustomUserSerializer
 
-
 from .models import CustomUser
 from .models import MagicLink
 from .utils import send_operations
@@ -18,14 +17,19 @@ class UserLogin(APIView):
     """
     def post(self, request):
         # check if a user with that email exists
-        email = request.data['email']
+        email = request.data.get('email')
+        phone = request.data.get('phone_number')
+        user = None
         try:
-            user = CustomUser.objects.get(email=email)
-            send_operations(request, user)
-            return Response({'status':201, 'userdata': user.username})
-        except:
-            pass
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+            if email:
+                user = CustomUser.objects.get(email=email)
+            if phone:
+                users = CustomUser.objects.all()
+                user = CustomUser.objects.get(phone_number=phone)
+        except CustomUser.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        send_operations(request, user)
+        return Response({'status':201, 'userdata': user.username})
 
 
 class CustomUserCreate(APIView):

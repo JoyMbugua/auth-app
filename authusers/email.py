@@ -1,6 +1,0 @@
-
-from decouple import config
-
-
-
-

@@ -31,7 +31,7 @@ class PhoneSignup extends Component {
       const phoneNumberBool = this.state.phoneNumber === this.state.phoneNumber2
 
       if(phoneNumberBool){
-          console.log(this.state)
+         
         await axios
         .post("http://127.0.0.1:8000/api/v1/users/register/", {
           username: this.state.username,
@@ -40,7 +40,8 @@ class PhoneSignup extends Component {
         .then((res) => res)
         .then((result) => {
           if (result.status === 201) {
-            console.log(result);
+            
+            localStorage.setItem("name",this.state.username)
             window.location.replace("http://127.0.0.1:8000/verify/");
           }
         });

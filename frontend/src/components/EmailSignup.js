@@ -39,6 +39,7 @@ class EmailSignup extends Component {
         .then((result) => {
           if (result.status === 201) {
             console.log(result);
+            localStorage.setItem("name",this.state.username)
             window.location.replace("http://127.0.0.1:8000/verify/");
           }
         });

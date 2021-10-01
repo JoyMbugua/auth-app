@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard";
 import MagicLinkHandler from "./LinkHandler";
 import LoginPage from "./LoginPage";
 import EmailLogin from "./EmailLogin";
+import PhoneLogin from "./PhoneLogin";
 
 class App extends Component {
   render() {
@@ -31,6 +32,7 @@ class App extends Component {
             <Route exact path={"/email-signup/"} component={EmailSignup} />
             <Route exact path={"/email-login/"} component={EmailLogin} />
             <Route exact path={"/phone-signup/"} component={PhoneSignup} />
+            <Route exact path={"/phone-login/"} component={PhoneLogin} />
             <Route exact path={"/verify/"} component={OTPView} />
             <Route exact path={"/dashboard/"} component={Dashboard} />
             <Route exact path={"/verifyemail/"} component={MagicLinkHandler} />
