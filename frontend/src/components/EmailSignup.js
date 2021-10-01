@@ -44,7 +44,7 @@ class Signup extends Component {
         });
       }else{
           this.setState({
-              emailMismatch: "The two password fields didn’t match."
+              emailMismatch: "The two email fields didn’t match."
           })
       }
     } catch (error) {
@@ -60,7 +60,7 @@ class Signup extends Component {
         <form onSubmit={this.handleSubmit}>
           <CSRFToken />
           <fieldset>
-            <legend>Sign Up</legend>
+            <legend>Email Sign Up</legend>
             <p className="errormsg">{this.state.emailMismatch}</p>
             <input
               name="username"

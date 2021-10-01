@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Link, Route } from "react-router-dom";
-import Signup from "./Signup";
+import EmailSignup from "./EmailSignup";
 import OTPView from "./Otp";
 import Dashboard from "./Dashboard";
 import MagicLinkHandler from "./LinkHandler";
@@ -22,10 +22,10 @@ class App extends Component {
         </nav>
         <main>
           <Switch>
-            <Route exact path={"/signup/"} component={Signup} />
+            <Route exact path={"/email-signup/"} component={EmailSignup} />
             <Route exact path={"/verify/"} component={OTPView} />
             <Route exact path={"/dashboard/"} component={Dashboard} />
-            <Route exact path={"/verifyemail/"} component={ MagicLinkHandler} />
+            <Route exact path={"/verifyemail/"} component={MagicLinkHandler} />
             <Route path={"/"} render={() => <div>Home again</div>} />
           </Switch>
         </main>
