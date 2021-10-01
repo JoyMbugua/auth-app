@@ -64,6 +64,11 @@ input{
 .inputs{
     margin: 5em auto;
 }
+.logoutinputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .register-site input, .login-site input{
     width: 250px;
     display: block;

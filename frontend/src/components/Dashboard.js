@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       message: "",
+      loggedin: false
     };
     this.getMessage = this.getMessage.bind(this);
   }
@@ -27,6 +29,7 @@ class Dashboard extends Component {
           const message = data.data.message;
           this.setState({
             message: message,
+            loggedin: true
           });
           return message;
         });
@@ -42,7 +45,15 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <h1 className="centered-text">{this.state.message}!</h1>
+        <h1 className="centered-text">{this.state.message}!</h1>{' '}
+        <br />
+        {this.state.loggedin && (
+            <div className="logoutinputs">
+                <Link to={'/logout/'}>
+            <input type="submit" value="Logout" />
+            </Link>
+            </div>
+        )}
       </div>
     );
   }

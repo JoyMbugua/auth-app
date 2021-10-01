@@ -9,6 +9,7 @@ import MagicLinkHandler from "./LinkHandler";
 import LoginPage from "./LoginPage";
 import EmailLogin from "./EmailLogin";
 import PhoneLogin from "./PhoneLogin";
+import Logout from "./Logout";
 
 class App extends Component {
   render() {
@@ -29,6 +30,7 @@ class App extends Component {
           <Switch>
             <Route exact path={"/signup/"} component={RegisterPage} />
             <Route path={"/login/"} component={LoginPage} />
+            <Route path={"/logout/"} component={Logout} />
             <Route exact path={"/email-signup/"} component={EmailSignup} />
             <Route exact path={"/email-login/"} component={EmailLogin} />
             <Route exact path={"/phone-signup/"} component={PhoneSignup} />
