@@ -22,14 +22,14 @@ class CustomUserSerializer(serializers.ModelSerializer):
     
 
     def create(self, validated_data):
-        print("VALIDATED",validated_data)
+      
         username = validated_data.get('username')
         user_email = validated_data.get('email', None)
         phone = validated_data.get('phone_number', None)
         # temporary code
         num_code = [str(random.choice([x for x in range(10)])) for _ in range(5)]
         password = ''.join(num_code)
-        print(password)
+       
         user = None
         if user_email:
             user = CustomUser.objects.create_user(username, user_email, password)
