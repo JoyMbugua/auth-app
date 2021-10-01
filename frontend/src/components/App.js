@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Link, Route } from "react-router-dom";
 import EmailSignup from "./EmailSignup";
+import PhoneSignup from "./PhoneSignup";
 import OTPView from "./Otp";
 import Dashboard from "./Dashboard";
 import MagicLinkHandler from "./LinkHandler";
@@ -23,6 +24,7 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path={"/email-signup/"} component={EmailSignup} />
+            <Route exact path={"/phone-signup/"} component={PhoneSignup} />
             <Route exact path={"/verify/"} component={OTPView} />
             <Route exact path={"/dashboard/"} component={Dashboard} />
             <Route exact path={"/verifyemail/"} component={MagicLinkHandler} />
