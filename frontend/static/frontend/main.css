@@ -60,3 +60,16 @@ input{
    text-align: center;
     color: navy;
 }
+
+.inputs{
+    margin: 5em auto;
+}
+.register-site input{
+    width: 250px;
+    display: block;
+    margin-top: 1em;
+    padding: 1em;
+    background-color: white;
+    border: 2px solid navy;
+    color: navy;
+}
