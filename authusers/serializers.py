@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 import random
 from .models import CustomUser
 
@@ -22,7 +21,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     
 
     def create(self, validated_data):
-        
+
         username = validated_data.get('username')
         user_email = validated_data.get('email', None)
         phone = validated_data.get('phone_number', None)
@@ -39,13 +38,4 @@ class CustomUserSerializer(serializers.ModelSerializer):
             user.save()
             return user
         return ''
-    
-
-
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super(MyTokenObtainPairSerializer, cls).get_token(user)
-        # add custom claims here
-        return token
 

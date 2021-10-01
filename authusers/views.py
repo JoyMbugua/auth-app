@@ -1,19 +1,31 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
 from rest_framework import status, permissions
 import pyotp
 import base64
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import CustomUserSerializer, MyTokenObtainPairSerializer
+from .serializers import CustomUserSerializer
 
 
 from .models import CustomUser
-from .email import send_otp_mail
 from .models import MagicLink
-from .utils import send_sms
+from .utils import send_operations
+
+class UserLogin(APIView):
+    """
+    view for handling login post requests
+    """
+    def post(self, request):
+        # check if a user with that email exists
+        email = request.data['email']
+        try:
+            user = CustomUser.objects.get(email=email)
+            send_operations(request, user)
+            return Response({'status':201, 'userdata': user.username})
+        except:
+            pass
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomUserCreate(APIView):
@@ -31,29 +43,9 @@ class CustomUserCreate(APIView):
                 user.counter += 1
                 user.save()
 
-                # generate otp code with username
-                key = base64.b32encode(user.username.encode())
-                hotp = pyotp.HOTP(key).at(user.counter)
-               
-               # sending otp to phone signups
-                if request.data.get('phone_number') is not None:
-                    phone = request.data['phone_number']
-                    send_sms(hotp, phone)
-                else:
-                    if request.data.get('email') is not None:
-                       email = request.data['email']
-                       magiclink = MagicLink.objects.create(user=user, email=user.email, code=hotp)
-                       link = magiclink.generate_url(request)
-                       send_otp_mail(user.username, email, hotp, link)
+                send_operations(request, user)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-class ObtainTokenPairView(TokenObtainPairView):
-    """
-    creates a token from serializer
-    """
-    serializer_class = MyTokenObtainPairSerializer
 
 
 class DashboardView(APIView):
@@ -81,7 +73,9 @@ class VerifyOTPView(APIView):
     }
 
     def post(self, request):
-        user = CustomUser.objects.last()
+        username = request.data.get('username')
+        print("username",username)
+        user = CustomUser.objects.get(username=username)
         if user is not None:
             key = base64.b32encode(user.username.encode())
             otp = pyotp.HOTP(key)
@@ -92,7 +86,6 @@ class VerifyOTPView(APIView):
                 token = self.get_tokens_for_user(user, user.code)
                 return Response({'status': 200, 'message': 'otp verified', 'token': token})
             else:
-                print('Not it!')
                 return Response({'status': 400, 'message': 'wrong otp code'})
         return Response({'status': 400, 'message': 'user does not exist'})
 
@@ -110,3 +103,4 @@ class LoginUserFromEmail(APIView):
 
             return Response({'status': 200, 'message': 'magiclink ok', 'token': magic_link_token})
         return Response({'status': 400, 'message': 'user does not exist'})
+

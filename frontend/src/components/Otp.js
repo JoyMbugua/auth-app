@@ -22,11 +22,14 @@ class OTPView extends Component {
 
   async handleSubmit(event) {
     console.log("state", this.state);
+    const name = localStorage.getItem('name')
+    console.log("name",name)
     event.preventDefault();
     try {
       await axios
         .post("http://127.0.0.1:8000/api/v1/verify/", {
           otpCode: this.state.otpCode,
+          username: name
         })
         .then((resp) => resp)
         .then((result) => {
@@ -44,6 +47,10 @@ class OTPView extends Component {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  componentDidMount(){
+
   }
 
   render() {
