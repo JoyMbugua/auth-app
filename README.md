@@ -4,6 +4,7 @@
 ## Author
 > Joy Mbugua
 -----------------------------------------------
+
 ## User stories
 > * A user can sign up or login with an email address. The user receives a one-time password code and magic link
 > * A user can sign up or login with a verified phone number. The user receives a one-time password code
@@ -34,7 +35,7 @@
 
 > If you find a bug, kindly open an issue [here](https://github.com/JoyMbugua/authapp/issues/new) by including your search query and the expected result.
 
-> If you'd like to request a new function, feel free to do so by opening an issue [here](https://github.com/JoyMbugua/auth/issues/new). Please include sample queries and their corresponding results.
+> If you'd like to request a new function, feel free to do so by opening an issue [here](https://github.com/JoyMbugua/authapp/issues/new). Please include sample queries and their corresponding results.
 
 ## Built with
 
